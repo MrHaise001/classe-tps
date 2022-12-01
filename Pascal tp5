@@ -1,0 +1,63 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <conio.h>
+
+int factorial( int n){
+    int i,s=1;
+    if( i!=0){
+
+        for(i=2;i<=n;i++)
+        {
+            s*=i;
+        }
+        return s;}
+    else return 1;
+}
+int calculCombinaison( int n,int k){
+    return  factorial(n)/(factorial( k)*factorial(n-k));
+}
+
+int **alloue_matrice_pascal(int dimension){
+    int i;
+    int ** matrice = (int **) malloc(dimension*sizeof(int *));
+    for (i = 0 ; i < dimension; i++){
+        matrice[i] = (int *) malloc(dimension * sizeof(int));
+    }
+    return  matrice;
+}
+
+int **remplit_matrice_pascal (int dimension){
+    int i,j;
+    int ** matrice = alloue_matrice_pascal(dimension);
+
+
+
+    for (i = 0 ; i < dimension ; i++){
+        for ( j = 0 ; j <= i ; j++){
+
+            matrice[i][j] = calculCombinaison(i,j);
+
+
+        }
+    }
+    return matrice;
+}
+
+void affiche_matrice_pascal (int ** mat, int dimension){
+    int i,j;
+    for (i = 0 ; i < dimension ; i++,printf("\n"))
+        for ( j = 0; j <=i ; j++)
+            printf("%d ",mat[i][j]);
+
+
+}
+
+int  main(){
+    int n  ;
+    printf("donner la dimension");
+    scanf("%d",&n);
+    int ** mat = remplit_matrice_pascal(n);
+    affiche_matrice_pascal(mat, n);
+
+    return 0;
+}
